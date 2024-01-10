@@ -33,6 +33,7 @@
   display: flex;
   flex-direction: row;
   column-gap: 2vw;
+  
 }
 .navbar p{
   font-weight: bold;
@@ -55,7 +56,7 @@
 .card_wrapper .card{
   position: relative;
   height: 250px;
-  width: 230px;
+  width: 250px;
   padding: 3vh 0vh;
   border-radius: 10px;
   box-shadow: 5px 5px 15px #ACACAC;
@@ -83,8 +84,8 @@
   position: absolute;
   height: 200px;
   width: 200px;
-  top: -100px;
-  left:17px;
+  top: -120px;
+  left:25px;
 }
 .card_header h2{
   font-size: 20px;
@@ -141,20 +142,6 @@
   top: -5%;
   right:-710px;
 }
-
-/* .large_images_wrapper .img_active{
-  position: absolute;
-  z-index: 2;
-  top: -5%;
-  left:25%;
-}
-
-.large_images_wrapper .img_unactive{
-  position: absolute;
-  z-index: 2;
-  top: 15%;
-  right:-710px;
-} */
 
 .siqui{
   position: absolute;

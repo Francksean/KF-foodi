@@ -35,7 +35,7 @@ function App() {
       var prev = activeCardId
       if (prev !== idCard) {
         setActiveCardId(idCard);
-        console.log(`card ${idCard} active\ncard ${prev} is not more active`);
+        // console.log(`card ${idCard} active\ncard ${prev} is not more active`);
       }
       return prev;
     });
@@ -48,28 +48,38 @@ function App() {
     const p2largeElement = p2largeRef.current;
     const p3largeElement = p3largeRef.current;
     const p4largeElement = p4largeRef.current;
+
+    var distLeft;
+
+    console.log(screen.width)
+
+    if(screen.width  >= 1600){
+      distLeft = screen.width*0.748;
+    }else{
+      distLeft = screen.width*0.786;
+    }
   
-    const distLeft = 1220;
     const distRight = 0;
     const opDown = 0;
     const opUp = 1;
+    const rotation = 180;
 
-    console.log(`active : ${activeCardId}, unactived : ${prevActiveCardId}`)
+    // console.log(`active : ${activeCardId}, unactived : ${prevActiveCardId}`)
   
     if (prevActiveCardId) {
       const prevTimeline = gsap.timeline();
       switch (prevActiveCardId) {
         case "1":
-          prevTimeline.to(p1largeElement, { x: distRight, rotate:360, duration: 1, opacity: opDown });
+          prevTimeline.to(p1largeElement, { x: distRight, rotate:rotation, duration: 1, opacity: opDown });
           break;
         case "2":
-          prevTimeline.to(p2largeElement, { x: distRight, rotate:360, duration: 1, opacity: opDown });
+          prevTimeline.to(p2largeElement, { x: distRight, rotate:rotation, duration: 1, opacity: opDown });
           break;
         case "3":
-          prevTimeline.to(p3largeElement, { x: distRight, rotate:360, duration: 1, opacity: opDown });
+          prevTimeline.to(p3largeElement, { x: distRight, rotate:rotation, duration: 1, opacity: opDown });
           break;
         case "4":
-          prevTimeline.to(p4largeElement, { x: distRight, rotate:360, duration: 1, opacity: opDown });
+          prevTimeline.to(p4largeElement, { x: distRight, rotate:rotation, duration: 1, opacity: opDown });
           break;
       }
     }
@@ -78,16 +88,16 @@ function App() {
       const activeTimeline = gsap.timeline();
       switch (activeCardId) {
         case "1":
-          activeTimeline.to(p1largeElement, { x: -distLeft,rotate:-360, duration: 1, opacity: opUp });
+          activeTimeline.to(p1largeElement, { x: -distLeft,rotate:-rotation, duration: 1, opacity: opUp });
           break;
         case "2":
-          activeTimeline.to(p2largeElement, { x: -distLeft,rotate:-360, duration: 1, opacity: opUp });
+          activeTimeline.to(p2largeElement, { x: -distLeft,rotate:-rotation, duration: 1, opacity: opUp });
           break;
         case "3":
-          activeTimeline.to(p3largeElement, { x: -distLeft,rotate:-360, duration: 1, opacity: opUp });
+          activeTimeline.to(p3largeElement, { x: -distLeft,rotate:-rotation, duration: 1, opacity: opUp });
           break;
         case "4":
-          activeTimeline.to(p4largeElement, { x: -distLeft,rotate:-360, duration: 1, opacity: opUp, scale:0.65 });
+          activeTimeline.to(p4largeElement, { x: -distLeft,rotate:-rotation, duration: 1, opacity: opUp, scale:0.65 });
           break;
       }
     }
@@ -127,21 +137,33 @@ export default App
 
 function Header() {
 
-  const [isActive, setIsACtive] = useState(false)
+  // const [isActive, setIsACtive] = useState(false)
 
   //def des refs
   const navbarElem1 = useRef(null)
   const navbarElem2 = useRef(null)
   const navbarElem3 = useRef(null)
 
+  const cursorRef = useRef(null)
+
+  function handleHeaderItemClick(item){
+    const headerItem = item.current
+    const cursor = cursorRef.current
+    cursor.style.position = 'absolute'
+    const cursorX = headerItem.X
+    const cursorY = headerItem.y
+
+    gsap.to(headerItem, {y:-10, fontSize:28})
+  }
+
   return (
     <div className='header'>
       <h2>My KF-Kitchen</h2>
       <div className="navbar_cursor"></div>
       <div className="navbar">
-        <p ref={navbarElem1}>Home</p>
-        <p ref={navbarElem2}>About us</p>
-        <p ref={navbarElem3}>Menu</p>
+        <p ref={navbarElem1} onClick={()=>{handleHeaderItemClick(navbarElem1)}}>Home</p>
+        <p ref={navbarElem2} onClick={()=>{handleHeaderItemClick(navbarElem2)}}>About us</p>
+        <p ref={navbarElem3} onClick={()=>{handleHeaderItemClick(navbarElem3)}}>Menu</p>
       </div>
     </div>
   )
@@ -151,20 +173,42 @@ function CardElement({ id,img, title, calories, time, persons, idSender}) {
 
   const cardRef = useRef(null)
 
+  const imgRef = useRef(null)
+  const titleRef = useRef(null)
+  const caloriesRef = useRef(null)
+  const cardBodyRef = useRef(null)
+
+  useEffect(()=>{
+    const imgElement = imgRef.current
+    const titleElement = titleRef.current
+    const caloriesElement = caloriesRef.current
+    const cardBodyElement = cardBodyRef.current
+
+    const cardTimeline = gsap.timeline()
+    cardTimeline.fromTo(imgElement, {y:-40, opacity:0}, {y:0, opacity:1, duration:0.2})
+    .fromTo(titleElement, {y:-20, opacity:0}, {y:0, opacity:1, duration:0.2})
+    .fromTo(caloriesElement, {y:20, opacity:0}, {y:0, opacity: 1, duration:0.2})
+    .fromTo(cardBodyElement, {x:-100, opacity:0}, {x:0, opacity: 1, duration:0.8})
+
+  }, [])
+
   function handleClick(){
     const idOfCard = cardRef.current.id
     // console.log(` idOfCard is ${idOfCard}`)
     idSender(idOfCard)
+    const cardElement = cardRef.current
+    gsap.to(cardElement, {y:-50, scale: 1.05, duration:0.1})
+    gsap.to(cardElement, {y:0, scale:1, delay:1, duration:0.1})
   }
 
   return (
     <div className='card' id={id} ref={cardRef} onClick={()=>{handleClick()}}>
       <div className="card_header">
-        <img src={img} alt="card title" />
-        <h2>{title}</h2>
-        <p>{`${calories} + calories`}</p>
+        <img src={img} alt="card title" ref={imgRef} />
+        <h2 ref={titleRef}>{title}</h2>
+        <p ref={caloriesRef}>{`${calories} + calories`}</p>
       </div>
-      <div className="card_body">
+      <div className="card_body" ref={cardBodyRef}>
         <div className="card_infos">
           <p>Time</p>
           <p>{`${time} minutes`}</p>
