@@ -49,9 +49,7 @@ function App() {
     const p3largeElement = p3largeRef.current;
     const p4largeElement = p4largeRef.current;
 
-    var distLeft;
-
-    console.log(screen.width)
+    let distLeft;
 
     if(screen.width  >= 1600){
       distLeft = screen.width*0.748;
@@ -137,33 +135,13 @@ export default App
 
 function Header() {
 
-  // const [isActive, setIsACtive] = useState(false)
-
-  //def des refs
-  const navbarElem1 = useRef(null)
-  const navbarElem2 = useRef(null)
-  const navbarElem3 = useRef(null)
-
-  const cursorRef = useRef(null)
-
-  function handleHeaderItemClick(item){
-    const headerItem = item.current
-    const cursor = cursorRef.current
-    cursor.style.position = 'absolute'
-    const cursorX = headerItem.X
-    const cursorY = headerItem.y
-
-    gsap.to(headerItem, {y:-10, fontSize:28})
-  }
-
   return (
     <div className='header'>
       <h2>My KF-Kitchen</h2>
-      <div className="navbar_cursor"></div>
       <div className="navbar">
-        <p ref={navbarElem1} onClick={()=>{handleHeaderItemClick(navbarElem1)}}>Home</p>
-        <p ref={navbarElem2} onClick={()=>{handleHeaderItemClick(navbarElem2)}}>About us</p>
-        <p ref={navbarElem3} onClick={()=>{handleHeaderItemClick(navbarElem3)}}>Menu</p>
+        <p>Home</p>
+        <p>About us</p>
+        <p>Menu</p>
       </div>
     </div>
   )
@@ -185,7 +163,8 @@ function CardElement({ id,img, title, calories, time, persons, idSender}) {
     const cardBodyElement = cardBodyRef.current
 
     const cardTimeline = gsap.timeline()
-    cardTimeline.fromTo(imgElement, {y:-40, opacity:0}, {y:0, opacity:1, duration:0.2})
+    cardTimeline
+    .fromTo(imgElement, {y:-40, opacity:0}, {y:0, opacity:1, duration:0.2})
     .fromTo(titleElement, {y:-20, opacity:0}, {y:0, opacity:1, duration:0.2})
     .fromTo(caloriesElement, {y:20, opacity:0}, {y:0, opacity: 1, duration:0.2})
     .fromTo(cardBodyElement, {x:-100, opacity:0}, {x:0, opacity: 1, duration:0.8})
