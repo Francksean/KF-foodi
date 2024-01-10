@@ -136,9 +136,13 @@
 .large_images_wrapper img{
   height: 700px;
   width: 700px;
+  position: absolute;
+  z-index: 2;
+  top: -5%;
+  right:-710px;
 }
 
-.large_images_wrapper .img_active{
+/* .large_images_wrapper .img_active{
   position: absolute;
   z-index: 2;
   top: -5%;
@@ -150,7 +154,7 @@
   z-index: 2;
   top: 15%;
   right:-710px;
-}
+} */
 
 .siqui{
   position: absolute;
