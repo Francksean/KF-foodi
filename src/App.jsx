@@ -51,10 +51,12 @@ function App() {
 
     let distLeft;
 
-    if(screen.width  >= 1600){
-      distLeft = screen.width*0.748;
+    if(screen.width  >= 1600 && screen.width <= 1900){
+      distLeft = screen.width*0.68;
+    }else if(screen.width  >= 1900){
+      distLeft = screen.width*0.63;
     }else{
-      distLeft = screen.width*0.786;
+      distLeft = screen.width*0.73;
     }
   
     const distRight = 0;
@@ -106,27 +108,30 @@ function App() {
   
 
   return (
-    <div className='App'>
-      <Header/>
-      <div className="siqui">
-        <p>SIMPLE</p>
-        <p>QUICK</p>
+    <>
+      <div className='disclaimer'>
+        Please resize your screen
       </div>
-      <div className="large_images_wrapper">
-        <img ref={p1largeRef} src={p1large} alt="plat 1" className='img_active' id='img1'/>
-        <img ref={p2largeRef} src={p2large} alt="plat 2" className='img_unactive' id='img2'/>
-        <img ref={p3largeRef} src={p3large} alt="plat 3" className='img_unactive' id='img3'/>
-        <img ref={p4largeRef} src={p4large} alt="plat 4" className='img_unactive' id='img4'/>
-      </div> 
-      <div className="card_wrapper">
-        <CardElement img={p1small} title={"Salmon Salad"} calories={150} time={15} persons={1} id={1} idSender={getCardId}/>
-        <CardElement img={p2small} title={"Raw Salmon Salad"} calories={170} time={10} persons={2} id={2} idSender={getCardId}/>
-        <CardElement img={p3small} title={"Salmon Stack"} calories={300} time={25} persons={4} id={3} idSender={getCardId}/>
-        <CardElement img={p4small} title={"Chicken with Rice"} calories={750} time={35} persons={3} id={4} idSender={getCardId}/>
+      <div className='App'>
+        <Header/>
+        <div className="siqui">
+          <p>SIMPLE</p>
+          <p>QUICK</p>
+        </div>
+        <div className="large_images_wrapper">
+          <img ref={p1largeRef} src={p1large} alt="plat 1" className='img_active' id='img1'/>
+          <img ref={p2largeRef} src={p2large} alt="plat 2" className='img_unactive' id='img2'/>
+          <img ref={p3largeRef} src={p3large} alt="plat 3" className='img_unactive' id='img3'/>
+          <img ref={p4largeRef} src={p4large} alt="plat 4" className='img_unactive' id='img4'/>
+        </div> 
+        <div className="card_wrapper">
+          <CardElement img={p1small} title={"Salmon Salad"} calories={150} time={15} persons={1} id={1} idSender={getCardId}/>
+          <CardElement img={p2small} title={"Raw Salmon Salad"} calories={170} time={10} persons={2} id={2} idSender={getCardId}/>
+          <CardElement img={p3small} title={"Salmon Stack"} calories={300} time={25} persons={4} id={3} idSender={getCardId}/>
+          <CardElement img={p4small} title={"Chicken with Rice"} calories={750} time={35} persons={3} id={4} idSender={getCardId}/>
+        </div>
       </div>
-
-      
-    </div>
+    </>
   )
 }
 
